@@ -1,0 +1,311 @@
+.reveal .radial-tabs {
+  font-size: 0.92em;
+}
+
+.reveal .radial-tabs > ul[role="tablist"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin: 0 0 0.65rem;
+  padding: 0;
+}
+
+.reveal .radial-tabs > ul[role="tablist"] li {
+  margin: 0;
+}
+
+.reveal .radial-tabs > ul[role="tablist"] a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.22rem 0.58rem;
+  border: 1px solid #34445c;
+  border-radius: 7px;
+  background: #101722;
+  color: #d7dde8;
+  font-size: 0.7em;
+  text-decoration: none;
+}
+
+.reveal .radial-tabs > ul[role="tablist"] a .math.inline {
+  margin-left: 0.2em;
+}
+
+.reveal .radial-tabs > ul[role="tablist"] a[aria-selected="true"] {
+  border-color: #8ec5ff;
+  background: #8ec5ff;
+  color: #050505;
+}
+
+.reveal .radial-tabs .tab-content {
+  min-height: 560px;
+}
+
+.reveal .radial-tabs .tab-content > div {
+  padding: 0.1rem 0.15rem 0;
+}
+
+.reveal .radial-tabs p {
+  margin: 0.45em 0;
+}
+
+.reveal .radial-tabs .math.display {
+  margin: 0.48em 0;
+}
+
+.reveal .radial-figure {
+  display: grid;
+  place-items: center;
+  height: 690px;
+  margin: 0 auto;
+}
+
+.reveal .radial-figure img {
+  display: block;
+  width: auto !important;
+  max-width: 100%;
+  height: auto;
+  max-height: 690px;
+  margin: 0 auto !important;
+  border: 0;
+  box-shadow: none;
+  object-fit: contain;
+}
+
+.reveal .radial-figure-wide img {
+  max-height: 650px;
+}
+
+.reveal .radial-figure.radial-figure-compact {
+  height: 650px;
+}
+
+.reveal .radial-figure.radial-figure-compact img {
+  max-height: 650px;
+}
+
+.reveal .radial-caption {
+  max-width: 1180px;
+  margin: 0.35rem auto 0;
+  color: #c9d2df;
+  font-size: 0.62em;
+  line-height: 1.28;
+  text-align: center;
+}
+
+.reveal .radial-two-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem;
+  align-items: start;
+}
+
+.reveal .radial-card {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #2f4057;
+  border-radius: 10px;
+  background: #0b111b;
+}
+
+.reveal .radial-card h3,
+.reveal .radial-card-title {
+  margin: 0 0 0.35rem;
+  color: #8ec5ff;
+  font-size: 0.82em;
+  font-weight: 700;
+}
+
+.reveal .radial-card p,
+.reveal .radial-card li {
+  font-size: 0.76em;
+}
+
+.reveal .radial-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.65rem;
+  align-items: stretch;
+  margin-top: 1rem;
+}
+
+.reveal .radial-flow.radial-flow-three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.reveal .radial-flow > div {
+  position: relative;
+  padding: 0.75rem;
+  border: 1px solid #34445c;
+  border-radius: 10px;
+  background: #0b111b;
+  font-size: 0.72em;
+  text-align: center;
+}
+
+.reveal .radial-flow > div:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: -0.62rem;
+  color: #8ec5ff;
+  font-size: 1.35em;
+  transform: translate(50%, -50%);
+  z-index: 2;
+}
+
+.reveal .falling-signals-scene {
+  width: min(100%, 1360px);
+  margin: 0 auto;
+  color: #f2f2f2;
+  font-size: 0.54em;
+}
+
+.reveal .falling-signals-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: center;
+  margin: 0 0 0.55rem;
+}
+
+.reveal .falling-signals-toolbar button {
+  appearance: none;
+  min-height: 2rem;
+  padding: 0.25rem 0.68rem;
+  border: 1px solid #34445c;
+  border-radius: 7px;
+  background: #101722;
+  color: #d7dde8;
+  cursor: pointer;
+  font: inherit;
+}
+
+.reveal .falling-signals-toolbar button[aria-pressed="true"],
+.reveal .falling-signals-toolbar button.primary {
+  border-color: #8ec5ff;
+  background: #8ec5ff;
+  color: #050505;
+}
+
+.reveal .falling-signals-readout {
+  margin-left: auto;
+  color: #b8c4d8;
+  font-variant-numeric: tabular-nums;
+}
+
+.reveal .falling-signals-stage svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 650px;
+}
+
+.reveal .falling-signals-bg {
+  fill: #070a0f;
+  stroke: #243244;
+  stroke-width: 1.2;
+}
+
+.reveal .falling-signals-panel {
+  fill: #0b111b;
+  stroke: #303b4f;
+  stroke-width: 1.2;
+}
+
+.reveal .falling-signals-grid {
+  stroke: #1e2a3b;
+  stroke-width: 1;
+}
+
+.reveal .falling-signals-axis {
+  stroke: #cdd7e5;
+  stroke-width: 2;
+}
+
+.reveal .falling-signals-horizon {
+  stroke: #58a6ff;
+  stroke-width: 3;
+  stroke-dasharray: 9 8;
+}
+
+.reveal .falling-signals-singularity {
+  stroke: #ff7575;
+  stroke-width: 4;
+}
+
+.reveal .falling-signals-worldline-m,
+.reveal .falling-signals-worldline-o,
+.reveal .falling-signals-ray {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.reveal .falling-signals-worldline-m {
+  stroke: #8ec5ff;
+  stroke-width: 5;
+}
+
+.reveal .falling-signals-worldline-o {
+  stroke: #ffcc4d;
+  stroke-width: 5;
+}
+
+.reveal .falling-signals-ray {
+  stroke: #ff7575;
+  stroke-width: 5;
+  filter: url(#signal-glow);
+}
+
+.reveal .falling-signals-ray-future {
+  opacity: 0.25;
+  stroke-dasharray: 8 9;
+}
+
+.reveal .falling-signals-object-m {
+  fill: #8ec5ff;
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+.reveal .falling-signals-object-o {
+  fill: #ffcc4d;
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+.reveal .falling-signals-photon {
+  fill: #ff7575;
+  stroke: #ffffff;
+  stroke-width: 2.5;
+  filter: url(#signal-glow);
+}
+
+.reveal .falling-signals-label {
+  fill: #d7dde8;
+  font-size: 20px;
+}
+
+.reveal .falling-signals-label-strong {
+  fill: #ffffff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.reveal .falling-signals-muted {
+  fill: #9fb0c7;
+  font-size: 17px;
+}
+
+.reveal .falling-signals-result {
+  fill: #ffcc8a;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .reveal .radial-two-columns,
+  .reveal .radial-flow {
+    grid-template-columns: 1fr 1fr;
+  }
+}

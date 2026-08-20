@@ -1,0 +1,82 @@
+---
+title: "Гравитация и общая теория относительности"
+toc: false
+---
+
+```{=html}
+<style>
+  .quarto-title-block {
+    display: none;
+  }
+</style>
+
+<div class="course-index course-subpage">
+  <nav class="course-profile-links" aria-label="Навигация курса">
+    <a href="https://neutrinohit.github.io/">NeutrinoHit</a>
+    <a href="https://neutrinohit.github.io/ru/education.html#gravity">Карта курса</a>
+  </nav>
+
+  <section class="course-intro">
+    <img class="course-site-logo" src="shared/reveal/dvnlogo.png" alt="NeutrinoHit">
+    <p class="course-kicker">Курс · русский язык · готовится</p>
+    <h1>Гравитация и общая теория относительности</h1>
+    <p>
+      Рабочий дом будущего курса по гравитации: HTML-лекции, конспекты,
+      задачи и воспроизводимые численные иллюстрации. Первая лекция разбирает
+      обмен световыми сигналами между свободно падающими объектами в геометрии
+      Шварцшильда.
+    </p>
+    <p class="course-author-note">
+      Автор: Дмитрий Наумов. Краткая информация и другие учебные направления
+      доступны на <a href="https://neutrinohit.github.io/ru/">NeutrinoHit</a>.
+    </p>
+  </section>
+
+  <section aria-label="Лекции курса">
+    <h2 class="course-section-title">Лекции</h2>
+    <div class="course-card-grid">
+      <article class="course-card">
+        <span class="course-card-status">01 · черновик</span>
+        <h3>Световые сигналы у горизонта чёрной дыры</h3>
+        <p>
+          Радиальное падение, координаты Пенлеве—Гуллстранда и точная связь
+          между событиями испускания и приёма сигнала.
+        </p>
+        <div class="course-links">
+          <a href="ru/slides/01_radial_signals.html">Открыть лекцию</a>
+        </div>
+      </article>
+      <article class="course-card is-planned">
+        <span class="course-card-status">следующие лекции · готовятся</span>
+        <h3>Продолжение курса</h3>
+        <p>
+          Последовательность тем будет сформирована по мере подготовки курса.
+          Новые лекции появятся на этой странице без смены адреса.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-label="Дополнительные материалы">
+    <h2 class="course-section-title">Дополнительные материалы</h2>
+    <div class="course-material-grid">
+      <article class="course-material">
+        <h3>Конспект</h3>
+        <p>Связный текст курса и подробные выводы — готовятся.</p>
+      </article>
+      <article class="course-material">
+        <h3>Задачи</h3>
+        <p>Упражнения и разборы решений — готовятся.</p>
+      </article>
+      <article class="course-material">
+        <h3>Апплеты и notebooks</h3>
+        <p>Интерактивные модели и вычислительные примеры — готовятся.</p>
+      </article>
+      <article class="course-material">
+        <h3>Литература</h3>
+        <p>Основные учебники, статьи и справочные материалы — готовятся.</p>
+      </article>
+    </div>
+  </section>
+</div>
+```

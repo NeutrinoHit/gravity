@@ -1,0 +1,42 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - "shared/**"
+    - "analytics/**"
+    - "ru/slides/assets/**"
+    - "requirements.txt"
+  render:
+    - "index.qmd"
+    - "ru/slides/*.qmd"
+
+lang: ru-RU
+
+website:
+  title: "Гравитация"
+  site-url: "https://neutrinohit.github.io/gravity/"
+  repo-url: "https://github.com/NeutrinoHit/gravity"
+  navbar:
+    left:
+      - href: https://neutrinohit.github.io/
+        text: NeutrinoHit
+      - href: https://neutrinohit.github.io/ru/education.html#gravity
+        text: Карта курса
+      - href: index.qmd
+        text: Гравитация
+  page-footer:
+    left: "© NeutrinoHit"
+    right: "Built with Quarto"
+
+format:
+  html:
+    theme: cosmo
+    css:
+      - https://neutrinohit.github.io/assets/site/neutrinohit-tokens.css
+      - https://neutrinohit.github.io/assets/site/neutrinohit-base.css
+      - https://neutrinohit.github.io/assets/site/neutrinohit-components.css
+      - https://neutrinohit.github.io/assets/site/neutrinohit-projects.css
+      - styles.css
+    toc: false
+    page-layout: full
+    include-after-body: analytics/cloudflare-web-analytics.html

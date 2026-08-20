@@ -1,0 +1,240 @@
+```{=html}
+<div class="falling-signals-scene" data-falling-signals-scene>
+  <div class="falling-signals-toolbar" role="group" aria-label="Сценарий светового сигнала">
+    <button type="button" data-scenario="before" aria-pressed="true">до горизонта</button>
+    <button type="button" data-scenario="horizon" aria-pressed="false">на горизонте</button>
+    <button type="button" data-scenario="inside" aria-pressed="false">внутри</button>
+    <button type="button" class="primary" data-action="play">▶ запустить</button>
+    <button type="button" data-action="reset">↺ сначала</button>
+    <span class="falling-signals-readout" data-readout></span>
+  </div>
+  <div class="falling-signals-stage" data-stage></div>
+</div>
+
+<script>
+(() => {
+  const root = document.currentScript.previousElementSibling;
+  if (!root || root.dataset.ready === "true") return;
+  root.dataset.ready = "true";
+
+  const stage = root.querySelector("[data-stage]");
+  const readout = root.querySelector("[data-readout]");
+  const scenarioButtons = Array.from(root.querySelectorAll("[data-scenario]"));
+  const playButton = root.querySelector('[data-action="play"]');
+  const resetButton = root.querySelector('[data-action="reset"]');
+
+  const delta = 0.5;
+  const scenarios = {
+    before:  {te: -0.25, label: "сигнал излучён до горизонта"},
+    horizon: {te:  0.00, label: "сигнал остаётся на горизонте: r = r_g"},
+    inside:  {te:  0.16, label: "даже наружный свет внутри движется к r=0"}
+  };
+
+  const state = {
+    scenario: "before",
+    progress: 0,
+    playing: false,
+    frame: null,
+    previous: null
+  };
+
+  const cbrt = Math.cbrt;
+  const qM = (tau) => cbrt(1 - 1.5 * tau);
+  const qO = (tau) => cbrt(1 - 1.5 * (tau - delta));
+  const tauO = (q) => delta + (2 / 3) * (1 - q ** 3);
+  const F = (q) => q ** 2 + 2 * q + 2 * Math.log(Math.abs(q - 1));
+  const H = (q) => (2 / 3) * q ** 3 + F(q);
+
+  function bisect(fn, lo, hi, iterations = 90) {
+    let flo = fn(lo);
+    for (let i = 0; i < iterations; i += 1) {
+      const mid = 0.5 * (lo + hi);
+      const fm = fn(mid);
+      if (Math.abs(fm) < 1e-12) return mid;
+      if (flo * fm <= 0) hi = mid;
+      else {
+        lo = mid;
+        flo = fm;
+      }
+    }
+    return 0.5 * (lo + hi);
+  }
+
+  function receptionQ(qe) {
+    if (Math.abs(qe - 1) < 1e-10) return 1;
+    const target = H(qe) + delta;
+    if (qe > 1) {
+      let hi = Math.max(qe + 0.1, 1.2 * qe);
+      while (H(hi) < target) hi *= 1.4;
+      return bisect((q) => H(q) - target, qe, hi);
+    }
+    return bisect((q) => H(q) - target, 1e-9, qe);
+  }
+
+  function scenarioData() {
+    const item = scenarios[state.scenario];
+    const qe = qM(item.te);
+    const qr = receptionQ(qe);
+    const tr = Math.abs(item.te) < 1e-10 ? delta : tauO(qr);
+    const start = Math.min(-0.5, item.te - 0.2);
+    const end = Math.min(delta + 2 / 3 - 0.025, tr + 0.18);
+    return {...item, qe, qr, tr, start, end};
+  }
+
+  function rayQ(tau, data) {
+    if (tau < data.te) return null;
+    if (Math.abs(data.qe - 1) < 1e-10) return 1;
+    if (tau >= data.tr) return data.qr;
+    const target = F(data.qe) + tau - data.te;
+    const lo = Math.min(data.qe, data.qr);
+    const hi = Math.max(data.qe, data.qr);
+    return bisect((q) => F(q) - target, lo, hi);
+  }
+
+  function path(samples, sx, sy) {
+    return samples.map(([x, y], index) => `${index ? "L" : "M"}${sx(x).toFixed(1)},${sy(y).toFixed(1)}`).join(" ");
+  }
+
+  function render() {
+    const data = scenarioData();
+    const tau = data.start + state.progress * (data.end - data.start);
+    const rhoM = Math.max(0, qM(Math.min(tau, 2 / 3)) ** 2);
+    const rhoO = Math.max(0, qO(Math.min(tau, delta + 2 / 3)) ** 2);
+    const qPhoton = rayQ(tau, data);
+    const rhoPhoton = qPhoton === null ? null : qPhoton ** 2;
+
+    const left = {x: 34, y: 76, w: 540, h: 500};
+    const right = {x: 612, y: 76, w: 650, h: 500};
+    const rhoMax = 2.35;
+    const sxLeft = (rho) => left.x + 44 + (rho / rhoMax) * (left.w - 80);
+    const sxRight = (rho) => right.x + 52 + (rho / rhoMax) * (right.w - 80);
+    const syRight = (t) => right.y + right.h - 42 - ((t - data.start) / (data.end - data.start)) * (right.h - 78);
+    const radialY = left.y + 285;
+
+    const times = Array.from({length: 180}, (_, i) => data.start + i * (data.end - data.start) / 179);
+    const mLine = times.filter((t) => t <= 2 / 3).map((t) => [qM(t) ** 2, t]);
+    const oLine = times.filter((t) => t <= delta + 2 / 3).map((t) => [qO(t) ** 2, t]);
+    const rayTimes = Array.from({length: 100}, (_, i) => data.te + i * (data.tr - data.te) / 99);
+    const rayLine = rayTimes.map((t) => [rayQ(t, data) ** 2, t]);
+    const rayPast = rayLine.filter(([, t]) => t <= tau);
+    const rayFuture = rayLine.filter(([, t]) => t >= tau);
+
+    const photonVisible = rhoPhoton !== null && tau <= data.tr + 1e-8;
+    const received = tau >= data.tr;
+    const emitted = tau >= data.te;
+    const horizonLeft = sxLeft(1);
+    const horizonRight = sxRight(1);
+    const nowY = syRight(tau);
+
+    const result = received
+      ? `принят: τᵣ=${data.tr.toFixed(3)}`
+      : emitted
+        ? `сигнал в пути`
+        : `до испускания`;
+
+    readout.textContent = `τ=${tau.toFixed(3)} · τₑ=${data.te.toFixed(2)} · ${result}`;
+    scenarioButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.scenario === state.scenario)));
+    playButton.textContent = state.playing ? "❚❚ пауза" : "▶ запустить";
+
+    stage.innerHTML = `
+      <svg viewBox="0 0 1300 620" role="img" aria-label="Анимация падения двух объектов и передачи радиального светового сигнала">
+        <defs>
+          <filter id="signal-glow" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="flow-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#9fb0c7"/>
+          </marker>
+        </defs>
+        <rect x="5" y="5" width="1290" height="610" rx="14" class="falling-signals-bg"/>
+        <rect x="${left.x}" y="${left.y}" width="${left.w}" height="${left.h}" rx="12" class="falling-signals-panel"/>
+        <rect x="${right.x}" y="${right.y}" width="${right.w}" height="${right.h}" rx="12" class="falling-signals-panel"/>
+
+        <text x="${left.x + 22}" y="42" class="falling-signals-label-strong">Что происходит сейчас</text>
+        <text x="${right.x + 22}" y="42" class="falling-signals-label-strong">Та же история в пространстве-времени</text>
+
+        <line x1="${sxLeft(0)}" y1="${radialY}" x2="${sxLeft(rhoMax)}" y2="${radialY}" class="falling-signals-axis" marker-end="url(#flow-arrow)"/>
+        <line x1="${sxLeft(0)}" y1="${radialY - 88}" x2="${sxLeft(0)}" y2="${radialY + 88}" class="falling-signals-singularity"/>
+        <line x1="${horizonLeft}" y1="${radialY - 110}" x2="${horizonLeft}" y2="${radialY + 110}" class="falling-signals-horizon"/>
+        <text x="${sxLeft(0) + 8}" y="${radialY + 132}" class="falling-signals-label">r=0</text>
+        <text x="${horizonLeft}" y="${radialY + 132}" text-anchor="middle" class="falling-signals-label">горизонт r=r<tspan baseline-shift="sub">g</tspan></text>
+        <text x="${sxLeft(rhoMax) - 4}" y="${radialY + 38}" text-anchor="end" class="falling-signals-muted">наружу →</text>
+        <text x="${left.x + 24}" y="${radialY - 145}" class="falling-signals-muted"><tspan>Внутри горизонта оба световых</tspan><tspan x="${left.x + 24}" dy="21">направления ведут к меньшим r</tspan></text>
+
+        <circle cx="${sxLeft(rhoM)}" cy="${radialY - 42}" r="17" class="falling-signals-object-m"/>
+        <text x="${sxLeft(rhoM)}" y="${radialY - 71}" text-anchor="middle" class="falling-signals-label-strong">M</text>
+        <circle cx="${sxLeft(rhoO)}" cy="${radialY + 42}" r="17" class="falling-signals-object-o"/>
+        <text x="${sxLeft(rhoO)}" y="${radialY + 82}" text-anchor="middle" class="falling-signals-label-strong">O</text>
+        ${photonVisible ? `<circle cx="${sxLeft(rhoPhoton)}" cy="${radialY}" r="10" class="falling-signals-photon"/><text x="${sxLeft(rhoPhoton)}" y="${radialY - 18}" text-anchor="middle" class="falling-signals-label">γ</text>` : ""}
+        ${received ? `<circle cx="${sxLeft(data.qr ** 2)}" cy="${radialY + 42}" r="29" fill="none" stroke="#ff7575" stroke-width="4" opacity="0.8"/>` : ""}
+
+        <text x="${left.x + 24}" y="${left.y + 40}" class="falling-signals-result">${data.label}</text>
+        <text x="${left.x + 24}" y="${left.y + 70}" class="falling-signals-muted">M пересекает горизонт при τ=0; O — при τ=δ=0.5</text>
+
+        ${[0, 0.5, 1, 1.5, 2].map((rho) => `<line x1="${sxRight(rho)}" y1="${right.y + 26}" x2="${sxRight(rho)}" y2="${right.y + right.h - 38}" class="falling-signals-grid"/><text x="${sxRight(rho)}" y="${right.y + right.h - 14}" text-anchor="middle" class="falling-signals-muted">${rho.toFixed(1)}</text>`).join("")}
+        <line x1="${sxRight(0)}" y1="${right.y + 26}" x2="${sxRight(0)}" y2="${right.y + right.h - 38}" class="falling-signals-singularity"/>
+        <line x1="${horizonRight}" y1="${right.y + 26}" x2="${horizonRight}" y2="${right.y + right.h - 38}" class="falling-signals-horizon"/>
+        <path d="${path(mLine, sxRight, syRight)}" class="falling-signals-worldline-m"/>
+        <path d="${path(oLine, sxRight, syRight)}" class="falling-signals-worldline-o"/>
+        ${rayPast.length > 1 ? `<path d="${path(rayPast, sxRight, syRight)}" class="falling-signals-ray"/>` : ""}
+        ${rayFuture.length > 1 && emitted && !received ? `<path d="${path(rayFuture, sxRight, syRight)}" class="falling-signals-ray falling-signals-ray-future"/>` : ""}
+        <line x1="${right.x + 18}" y1="${nowY}" x2="${right.x + right.w - 18}" y2="${nowY}" stroke="#d7dde8" stroke-width="2" stroke-dasharray="5 7" opacity="0.6"/>
+        <text x="${right.x + 18}" y="${nowY - 8}" class="falling-signals-muted">сейчас</text>
+        <circle cx="${sxRight(rhoM)}" cy="${nowY}" r="10" class="falling-signals-object-m"/>
+        <circle cx="${sxRight(rhoO)}" cy="${nowY}" r="10" class="falling-signals-object-o"/>
+        ${photonVisible ? `<circle cx="${sxRight(rhoPhoton)}" cy="${nowY}" r="8" class="falling-signals-photon"/>` : ""}
+        <text x="${right.x + right.w - 16}" y="${right.y + right.h - 14}" text-anchor="end" class="falling-signals-muted">ρ=r/r<tspan baseline-shift="sub">g</tspan></text>
+        <text x="${right.x + 17}" y="${right.y + 48}" class="falling-signals-muted">время τ растёт вверх</text>
+        <text x="${right.x + 17}" y="${right.y + 75}" class="falling-signals-label"><tspan fill="#8ec5ff">M</tspan> впереди · <tspan fill="#ffcc4d">O</tspan> с задержкой δ · <tspan fill="#ff7575">γ</tspan> наружный сигнал</text>
+      </svg>`;
+  }
+
+  function tick(timestamp) {
+    if (!state.playing) return;
+    if (state.previous === null) state.previous = timestamp;
+    const elapsed = timestamp - state.previous;
+    state.previous = timestamp;
+    state.progress += elapsed / 6500;
+    if (state.progress >= 1) {
+      state.progress = 1;
+      state.playing = false;
+      state.previous = null;
+      render();
+      return;
+    }
+    render();
+    state.frame = requestAnimationFrame(tick);
+  }
+
+  function setScenario(name) {
+    state.scenario = name;
+    state.progress = 0;
+    state.playing = false;
+    state.previous = null;
+    if (state.frame) cancelAnimationFrame(state.frame);
+    render();
+  }
+
+  scenarioButtons.forEach((button) => button.addEventListener("click", () => setScenario(button.dataset.scenario)));
+  playButton.addEventListener("click", () => {
+    if (state.progress >= 1) state.progress = 0;
+    state.playing = !state.playing;
+    state.previous = null;
+    render();
+    if (state.playing) state.frame = requestAnimationFrame(tick);
+  });
+  resetButton.addEventListener("click", () => setScenario(state.scenario));
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && state.playing) {
+      state.playing = false;
+      state.previous = null;
+      render();
+    }
+  });
+
+  render();
+})();
+</script>
+```
