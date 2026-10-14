@@ -2,12 +2,14 @@ project:
   type: website
   output-dir: _site
   resources:
-    - "shared/**"
+    - "shared/reveal/**"
+    - "shared/styles/**"
     - "analytics/**"
     - "ru/slides/assets/**"
     - "requirements.txt"
   render:
     - "index.qmd"
+    - "ru/course.qmd"
     - "ru/slides/*.qmd"
 
 lang: ru-RU
@@ -24,6 +26,10 @@ website:
         text: Карта курса
       - href: index.qmd
         text: Гравитация
+      - href: ru/course.qmd
+        text: Программа
+      - href: ru/book/
+        text: Книга
   page-footer:
     left: "© NeutrinoHit"
     right: "Built with Quarto"

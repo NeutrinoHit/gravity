@@ -1,0 +1,124 @@
+project:
+  type: book
+  output-dir: ../../_site/ru/book
+
+book:
+  title: "Гравитация"
+  subtitle: "Общая теория относительности для экспериментаторов"
+  output-file: gravity-for-experimentalists
+  author: "Дмитрий В. Наумов"
+  site-url: "https://neutrinohit.github.io/gravity/ru/book/"
+  repo-url: "https://github.com/NeutrinoHit/gravity"
+  repo-subdir: "ru/book"
+  repo-actions: [source, issue]
+  search: true
+  reader-mode: true
+  downloads: [pdf, epub]
+  page-footer:
+    left: "© Дмитрий В. Наумов"
+    right: "NeutrinoHit · Гравитация"
+  chapters:
+    - index.qmd
+    - preface.qmd
+    - part: "I. События, часы и специальная относительность"
+      chapters:
+        - chapters/01_gravity_as_experiment.qmd
+        - chapters/02_minkowski_signals.qmd
+        - chapters/03_four_momentum.qmd
+        - chapters/04_acceleration_equivalence.qmd
+    - part: "II. Геометрия как измерительный язык"
+      chapters:
+        - chapters/05_metric_local_frame.qmd
+        - chapters/06_geodesics_tides.qmd
+        - chapters/07_curvature_einstein.qmd
+        - chapters/08_weak_field_tests.qmd
+    - part: "III. Статические поля, навигация и чёрные дыры"
+      chapters:
+        - chapters/09_schwarzschild_tests.qmd
+        - chapters/10_clocks_navigation.qmd
+        - chapters/11_horizons_signals.qmd
+        - chapters/12_rotating_black_holes.qmd
+    - part: "IV. Динамическое пространство-время"
+      chapters:
+        - chapters/13_gravitational_waves.qmd
+        - chapters/14_compact_binaries.qmd
+        - chapters/15_interferometers.qmd
+        - chapters/16_testing_gr.qmd
+    - part: "V. Вселенная как гравитационный эксперимент"
+      chapters:
+        - chapters/17_relativistic_cosmology.qmd
+        - chapters/18_observational_cosmology.qmd
+
+lang: ru-RU
+
+book-part-titles:
+  - "I. События, часы и специальная относительность"
+  - "II. Геометрия как измерительный язык"
+  - "III. Статические поля, навигация и чёрные дыры"
+  - "IV. Динамическое пространство-время"
+  - "V. Вселенная как гравитационный эксперимент"
+
+filters:
+  - assets/filters/neutrinohit-book.lua
+
+crossref:
+  fig-title: "Рис."
+  fig-prefix: "рис."
+  tbl-title: "Таблица"
+  tbl-prefix: "табл."
+  exr-title: "Задача"
+  exr-prefix: "задаче"
+  exm-title: "Пример"
+  exm-prefix: "примере"
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    grid:
+      sidebar-width: 270px
+      body-width: 1050px
+      margin-width: 230px
+      gutter-width: 1rem
+    css:
+      - assets/styles/neutrinohit-book.css
+      - assets/styles/book.css
+    theme: cosmo
+    code-copy: true
+    anchor-sections: true
+    smooth-scroll: true
+    link-external-newwindow: true
+    fig-responsive: true
+    include-after-body: ../../analytics/cloudflare-web-analytics.html
+  pdf:
+    documentclass: scrbook
+    classoption:
+      - open=any
+    papersize: a4
+    fontsize: 11pt
+    geometry:
+      - top=18mm
+      - bottom=20mm
+      - inner=20mm
+      - outer=50mm
+      - marginparwidth=36mm
+      - marginparsep=6mm
+      - headheight=6mm
+      - headsep=5mm
+      - footskip=9mm
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    colorlinks: true
+    pdf-engine: lualatex
+    include-in-header:
+      - ../../shared/latex/neutrinohit-book.tex
+      - ../../shared/latex/ru-lang.tex
+  epub:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    css:
+      - assets/styles/neutrinohit-book.css
+      - assets/styles/book.css
