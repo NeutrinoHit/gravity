@@ -47,7 +47,9 @@ RevealJS задаются один раз в `ru/slides/_metadata.yml`; в са�
 make site
 ```
 
-Готовый сайт записывается в `_site/`.
+Готовый сайт вместе с HTML-, PDF- и EPUB-книгой записывается в `_site/`.
+PDF собирается LuaLaTeX; `make ci-setup` готовит TinyTeX и нужные пакеты
+(в GitHub Actions — через `scripts/setup_book_tex.sh`).
 
 Книга отдельно:
 
@@ -70,10 +72,21 @@ python -m pip install -r requirements.txt
 python ru/slides/assets/radial-signals/generate_figures.py
 ```
 
-Обновить общие RevealJS- и книжные ресурсы из соседнего `neutrinohit-map`:
+Обновить общие RevealJS- и книжные ресурсы из соседнего `neutrinohit-map`
+(канонические скрипты `sync_reveal_assets.py` и `sync_book_assets.py`;
+`make check-shared` только сравнивает копии):
 
 ```bash
 make sync-shared
+```
+
+Анимации книги опубликованы на QR-страницах `https://neutrinohit.github.io/qr/gravity/<id>/`
+по каталогу `neutrinohit-map/books/gravity.catalog.json`. QR-коды
+(`ru/book/assets/qr/`) и постеры (`ru/book/assets/animations/`) обновляются
+из каталога и ресурсов карты:
+
+```bash
+make book-media
 ```
 
 Канонические CSS, Lua и TeX книжного оформления хранятся в

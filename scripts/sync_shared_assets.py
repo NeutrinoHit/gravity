@@ -1,34 +1,36 @@
 #!/usr/bin/env python3
+"""Refresh or check the local copies of the shared NeutrinoHit assets.
+
+The canonical files and copy lists live in the sibling neutrinohit-map
+repository (scripts/sync_reveal_assets.py, scripts/sync_book_assets.py).
+This wrapper runs both for the gravity target and passes extra arguments
+through, e.g. `--check --diff`.
+"""
+
+from __future__ import annotations
+
+import os
+import subprocess
+import sys
 from pathlib import Path
-import shutil
 
 
 PROJECT = Path(__file__).resolve().parents[1]
-ROOT = PROJECT.parent
-ASSETS = ROOT / "neutrinohit-map" / "assets"
-
-COPIES = [
-    ("reveal/neutrinohit-reveal-footer.js", PROJECT / "shared" / "reveal"),
-    ("reveal/neutrinohit-timed-captions.js", PROJECT / "shared" / "reveal"),
-    ("reveal/neutrinohit-reveal-quiz.css", PROJECT / "shared" / "reveal"),
-    ("reveal/dvnlogo.png", PROJECT / "shared" / "reveal"),
-    ("reveal/neutrinohit-reveal.scss", PROJECT / "shared" / "styles"),
-    ("books/neutrinohit-book.css", PROJECT / "ru" / "book" / "assets" / "styles"),
-    ("books/neutrinohit-book.lua", PROJECT / "ru" / "book" / "assets" / "filters"),
-    ("books/neutrinohit-book.tex", PROJECT / "shared" / "latex"),
-]
+MAP_ROOT = Path(os.environ.get("MAP_ROOT", PROJECT.parent / "neutrinohit-map"))
+SCRIPTS = ["sync_reveal_assets.py", "sync_book_assets.py"]
 
 
-def main() -> None:
-    for relative_source, target_dir in COPIES:
-        source = ASSETS / relative_source
-        if not source.exists():
-            raise FileNotFoundError(f"Missing shared asset: {source}")
-        target_dir.mkdir(parents=True, exist_ok=True)
-        target = target_dir / source.name
-        shutil.copy2(source, target)
-        print(f"{source} -> {target}")
+def main() -> int:
+    status = 0
+    for name in SCRIPTS:
+        script = MAP_ROOT / "scripts" / name
+        if not script.is_file():
+            print(f"Missing canonical script: {script}", file=sys.stderr)
+            return 1
+        command = [sys.executable, str(script), "--target", "gravity", *sys.argv[1:]]
+        status = max(status, subprocess.call(command))
+    return status
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -1,6 +1,8 @@
 project:
   type: book
   output-dir: ../../_site/ru/book
+  resources:
+    - "assets/animations/**"
 
 book:
   title: "Гравитация"
@@ -58,7 +60,12 @@ book-part-titles:
   - "IV. Динамическое пространство-время"
   - "V. Вселенная как гравитационный эксперимент"
 
+# The title block (HTML) and the title page (PDF, EPUB) already show the book
+# title, so the shared filter drops the repeated heading of index.qmd.
+hide-book-index: all
+
 filters:
+  - assets/filters/hide-book-index.lua
   - assets/filters/neutrinohit-book.lua
 
 crossref:
