@@ -3,7 +3,6 @@ title: "Световые сигналы у горизонта чёрной ды�
 subtitle: "Два свободно падающих объекта в геометрии Шварцшильда"
 author: "Д. В. Наумов"
 institute: "Объединённый институт ядерных исследований"
-date: "готовится"
 aliases:
   - /radial_signals_black_hole_lecture.html
 format:
