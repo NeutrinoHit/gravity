@@ -22,7 +22,7 @@ format:
     code-copy: true
     include-after-body:
       - text: |
-          <script data-external="1" data-context-home="https://neutrinohit.github.io/gravity/" data-context-home-label="Курс по гравитации" src="../../shared/reveal/neutrinohit-reveal-footer.js"></script>
+          <script data-external="1" data-context-home="https://neutrinohit.github.io/ru/courses/gravity.html" data-context-home-label="Страница курса" src="../../shared/reveal/neutrinohit-reveal-footer.js"></script>
       - ../../analytics/cloudflare-web-analytics.html
 
 execute:
