@@ -28,8 +28,6 @@ website:
         text: Гравитация
       - href: ru/course.qmd
         text: Программа
-      - href: ru/book/
-        text: Книга
   page-footer:
     left: "© NeutrinoHit"
     right: "Built with Quarto"

@@ -15,7 +15,8 @@ https://neutrinohit.github.io/gravity/
 
 - `index.qmd` — стабильная домашняя страница курса;
 - `ru/course.qmd` — программа курса и связь лекций с главами книги;
-- `ru/book/` — русская Quarto-книга с HTML-, PDF- и EPUB-сборкой;
+- `ru/book/` — исходники русской Quarto-книги (HTML, PDF, EPUB); на сайте книга
+  не публикуется;
 - `ru/slides/` — русские HTML-слайды;
 - `ru/slides/assets/<lecture-slug>/` — код, рисунки и крупные фрагменты
   конкретной лекции;
@@ -47,11 +48,10 @@ RevealJS задаются один раз в `ru/slides/_metadata.yml`; в са�
 make site
 ```
 
-Готовый сайт вместе с HTML-, PDF- и EPUB-книгой записывается в `_site/`.
-PDF собирается LuaLaTeX; `make ci-setup` готовит TinyTeX и нужные пакеты
-(в GitHub Actions — через `scripts/setup_book_tex.sh`).
+Готовый сайт записывается в `_site/`; книга в него не входит.
 
-Книга отдельно:
+Книга отдельно, только локально (PDF собирается LuaLaTeX; `make ci-setup`
+готовит TinyTeX и нужные пакеты):
 
 ```bash
 make book-html

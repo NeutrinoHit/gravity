@@ -65,10 +65,7 @@ toc: false
     <div class="course-material-grid">
       <article class="course-material">
         <h3>Книга</h3>
-        <p>Связный текст, подробные выводы и единая HTML/PDF/EPUB-сборка.</p>
-        <div class="course-links">
-          <a href="ru/book/">Открыть книгу</a>
-        </div>
+        <p>Книга к курсу готовится.</p>
       </article>
       <article class="course-material">
         <h3>Задачи</h3>

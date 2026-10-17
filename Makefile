@@ -48,20 +48,17 @@ book-media: check-env ## Обновить QR-коды и постеры аним
 	  cp "$$poster" $(BOOK_DIR)/assets/animations/; \
 	done
 
-site: check-env ## Собрать сайт, курс лекций и книгу (HTML, PDF, EPUB) в _site
+site: check-env ## Собрать сайт и курс лекций в _site (книга не публикуется)
 	rm -rf _site
 	$(QUARTO) render
-	$(QUARTO) render $(BOOK_DIR) $(BOOK_RENDER_FLAGS)
 	find _site -type f -name '*.qmd' -delete
 	rm -rf _site/ru/slides/assets/radial-signals/__pycache__
 	rm -f _site/ru/slides/assets/radial-signals/generate_figures.py
 	test -s _site/index.html
 	test -s _site/ru/course.html
-	test -s _site/ru/book/index.html
-	test -s _site/ru/book/$(BOOK_FILE).pdf
-	test -s _site/ru/book/$(BOOK_FILE).epub
+	test ! -e _site/ru/book
 
-book: check-env ## Собрать книгу во всех форматах
+book: check-env ## Собрать книгу во всех форматах (локально, не для публикации)
 	$(QUARTO) render $(BOOK_DIR) $(BOOK_RENDER_FLAGS)
 
 book-html: check-env ## Собрать HTML-книгу
