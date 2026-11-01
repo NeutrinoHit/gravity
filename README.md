@@ -89,6 +89,15 @@ make sync-shared
 make book-media
 ```
 
+Видео анимаций — фильмы общей медиатеки NeutrinoHit: блок анимации ссылается
+на них как `src="nh:<id>/<variant>"`, версии закреплены в
+`ru/book/media.lock.json`, расширение `neutrinohit-media` лежит в
+`ru/book/_extensions/`. Обновить закреплённые версии:
+
+```bash
+python3 ../neutrinohit-map/scripts/nh_media.py lock ru/book
+```
+
 Канонические CSS, Lua и TeX книжного оформления хранятся в
 `neutrinohit-map/assets/books/`; в `gravity` находятся синхронизированные
 локальные копии и только предметные дополнения.

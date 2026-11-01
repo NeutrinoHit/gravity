@@ -1,0 +1,60 @@
+{
+ "schema": 1,
+ "generated_by": "neutrinohit-map/scripts/nh_media.py lock",
+ "media": [
+  {
+   "id": "black-hole-flyby",
+   "variant": "web-flyby-ru",
+   "version": 1,
+   "url": "/media-qft/black-hole-flyby/web-flyby-ru-v1.mp4",
+   "sha256": "eb3dd1ae6c673d43042a34b05f71c8e0ac6304c55f80f4876ebb47dc56846f32",
+   "bytes": 8797715,
+   "status": "published"
+  },
+  {
+   "id": "galaxy-merger",
+   "variant": "web-merger",
+   "version": 1,
+   "url": "/media-mechanics/galaxy-merger/web-merger-v1.mp4",
+   "sha256": "0d01c5cd40b1509fb2c3cc722352f4c3178f76c195d4ba2351433981be069796",
+   "bytes": 1899248,
+   "status": "published"
+  },
+  {
+   "id": "hulse-taylor",
+   "variant": "web-orbit-ru",
+   "version": 1,
+   "url": "/media-qft/hulse-taylor/web-orbit-ru-v1.mp4",
+   "sha256": "bfe548f5bed2774c0b5ccfa3e02dc2bd216a049956ed2dabb8c858ee4e0c7abc",
+   "bytes": 1663821,
+   "status": "published"
+  },
+  {
+   "id": "penrose-terrell",
+   "variant": "web-camera-ru",
+   "version": 1,
+   "url": "/media-qft/penrose-terrell/web-camera-ru-v1.mp4",
+   "sha256": "f7439a2d822ad7fec4b4e9f90416e56d2fbc5424ad656012770d549283c69878",
+   "bytes": 535041,
+   "status": "published"
+  },
+  {
+   "id": "simultaneity",
+   "variant": "web-minkowski-ru",
+   "version": 1,
+   "url": "/media-qft/simultaneity/web-minkowski-ru-v1.mp4",
+   "sha256": "7f3ddbd79ede48c28ca908ec8f2e01b0fb1197fc338047bea69d68e3622dc592",
+   "bytes": 2877555,
+   "status": "published"
+  },
+  {
+   "id": "wormhole-camera",
+   "variant": "web-camera-ru",
+   "version": 1,
+   "url": "/media-qft/wormhole-camera/web-camera-ru-v1.mp4",
+   "sha256": "0314cf5bf66f528076777f1c72d942e450de43fb9f253dff2e64e4db47a06cb6",
+   "bytes": 10757166,
+   "status": "published"
+  }
+ ]
+}

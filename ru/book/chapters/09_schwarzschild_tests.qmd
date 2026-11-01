@@ -23,7 +23,7 @@ title: "Геометрия Шварцшильда и классические т
 Орбиты планет и звёзд, радиолокация, слежение за аппаратами и астрометрия
 проверяют разные комбинации одной и той же геометрии.
 
-::: {#anim-black-hole-flyby .animation title="Облёт чёрной дыры: камера в свободном падении" src="https://neutrinohit.github.io/assets/animations/dvnanima/relativity-atom-spin-black-hole-flyby-flyby.mp4" poster="../assets/animations/0006.jpg" url="https://neutrinohit.github.io/qr/gravity/0006/" qr="../assets/qr/Black_Hole_Flyby.png"}
+::: {#anim-black-hole-flyby .animation title="Облёт чёрной дыры: камера в свободном падении" src="nh:black-hole-flyby/web-flyby-ru" poster="../assets/animations/0006.jpg" url="https://neutrinohit.github.io/qr/gravity/0006/" qr="../assets/qr/Black_Hole_Flyby.png"}
 Камера свободно падает по связанной орбите вокруг невращающейся чёрной дыры с
 массой $4{,}3\cdot10^6M_\odot$ (такова масса чёрной дыры в центре нашей
 Галактики); в перицентре $4{,}6\,GM/c^2$ её скорость равна $0{,}65\,c$. Лучи

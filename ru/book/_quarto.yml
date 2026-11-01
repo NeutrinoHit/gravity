@@ -64,7 +64,10 @@ book-part-titles:
 # title, so the shared filter drops the repeated heading of index.qmd.
 hide-book-index: all
 
+# neutrinohit-media resolves src="nh:<id>/<variant>" of animation blocks to the
+# shared film (media.lock.json) before the book filter builds the video.
 filters:
+  - neutrinohit-media
   - assets/filters/hide-book-index.lua
   - assets/filters/neutrinohit-book.lua
 

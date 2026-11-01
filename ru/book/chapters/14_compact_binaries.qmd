@@ -23,7 +23,7 @@ title: "Компактные двойные и генерация сигнала
 Свяжем фазу и амплитуду сигнала с массами, расстоянием, ориентацией и откликом
 сети детекторов; отдельно отметим вырождения параметров.
 
-::: {#anim-hulse-taylor .animation title="Двойной пульсар Халса — Тейлора" src="https://neutrinohit.github.io/assets/animations/dvnanima/relativity-atom-spin-hulse-taylor-orbit.mp4" poster="../assets/animations/0001.jpg" url="https://neutrinohit.github.io/qr/gravity/0001/" qr="../assets/qr/HulseTaylor.png"}
+::: {#anim-hulse-taylor .animation title="Двойной пульсар Халса — Тейлора" src="nh:hulse-taylor/web-orbit-ru" poster="../assets/animations/0001.jpg" url="https://neutrinohit.github.io/qr/gravity/0001/" qr="../assets/qr/HulseTaylor.png"}
 Две нейтронные звезды (1,438 и 1,390 массы Солнца) на вытянутой орбите с
 периодом 7,75 ч излучают гравитационные волны. Орбита сжимается, период падает,
 и периастр приходит раньше, чем при постоянном периоде. Справа растёт

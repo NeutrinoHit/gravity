@@ -23,7 +23,7 @@ title: "Кривизна и уравнения Эйнштейна"
 Компоненты энергии-импульса связываются с плотностью энергии, потоком импульса
 и напряжениями в локальном репере наблюдателя.
 
-::: {#anim-wormhole-camera .animation title="Камера у кротовой норы: свет двух Вселенных" src="https://neutrinohit.github.io/assets/animations/dvnanima/relativity-atom-spin-wormhole-camera-camera.mp4" poster="../assets/animations/0005.jpg" url="https://neutrinohit.github.io/qr/gravity/0005/" qr="../assets/qr/Wormhole_Camera.png"}
+::: {#anim-wormhole-camera .animation title="Камера у кротовой норы: свет двух Вселенных" src="nh:wormhole-camera/web-camera-ru" poster="../assets/animations/0005.jpg" url="https://neutrinohit.github.io/qr/gravity/0005/" qr="../assets/qr/Wormhole_Camera.png"}
 Кротовая нора Морриса и Торна — решение уравнений Эйнштейна для статического
 сферически симметричного пространства без горизонта; оно требует отрицательной
 плотности энергии. На экваториальной плоскости поверхность $r=b\cosh(z/b)$
